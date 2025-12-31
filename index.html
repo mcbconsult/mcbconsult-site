@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCB Consult – Digital Branding</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--bg:#0f0f0f;
+--panel:#151515;
+--border:#2a2a2a;
+--text:#fff;
+--muted:#b3b3b3;
+--accent:#0826cf;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,sans-serif;background:var(--bg);color:var(--text)}
+
+.announcement{
+  width:100%;
+  overflow:hidden;
+  background:var(--accent);
+  color:#fff;
+  font-weight:600;
+  font-size:16px;
+  white-space:nowrap;
+  box-sizing:border-box;
+}
+
+.announcement-text{
+  display:inline-block;
+  padding-left:100%;
+  animation:scrollLeft 15s linear infinite;
+}
+
+@keyframes scrollLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+header{
+position:sticky;top:0;z-index:100;
+display:flex;justify-content:space-between;align-items:center;
+padding:20px 56px;background:rgba(15,15,15,.9);
+border-bottom:1px solid var(--border)
+}
+
+header h1{
+  color:var(--accent);
+  font-size:28px;
+  margin:0;
+}
+
+nav{
+display:flex;gap:12px;align-items:center;
+padding:10px 22px;border-radius:999px;
+border:1px solid var(--border);background:#151515
+}
+
+nav a,select{
+padding:8px 18px;border-radius:999px;
+text-decoration:none;background:none;border:none;
+color:#ccc;font-weight:500;cursor:pointer
+}
+
+nav a:hover{background:var(--accent);color:#fff}
+
+section{
+max-width:1100px;margin:auto;padding:140px 56px;
+display:none;text-align:center
+}
+section.active{display:block}
+
+h1{font-size:64px;margin-bottom:24px}
+h2{font-size:44px;margin-bottom:24px}
+h3{font-size:28px;margin-bottom:16px}
+p{color:var(--muted);font-size:17px;line-height:1.7;max-width:760px;margin:auto}
+
+.btn{
+margin-top:32px;padding:16px 36px;border-radius:999px;
+border:none;font-weight:600;cursor:pointer;
+background:var(--accent);
+color:#fff;
+transition:0.3s;
+}
+.btn:hover{opacity:0.85;}
+
+.divider{
+margin:90px auto;height:1px;width:80%;
+background:linear-gradient(to right,transparent,var(--border),transparent)
+}
+
+.grid{
+margin-top:64px;
+display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:28px
+}
+
+.card{
+background:var(--panel);border:1px solid var(--border);
+border-radius:18px;padding:36px
+}
+
+.team-bar{
+margin-top:48px;display:flex;justify-content:center;
+gap:24px;flex-wrap:wrap
+}
+.team-member{
+padding:14px 30px;border-radius:999px;
+border:1px solid var(--border);background:#101010;font-weight:600
+}
+
+form{
+max-width:520px;margin:40px auto 0;
+display:flex;flex-direction:column;gap:18px
+}
+input,select{
+padding:14px 18px;border-radius:12px;
+border:1px solid var(--border);
+background:#101010;color:#fff;font-size:15px
+}
+
+footer{
+border-top:1px solid var(--border);
+padding:40px;text-align:center;color:#777;font-size:14px
+}
+</style>
+</head>
+
+<body>
+
+<!-- ANNOUNCEMENT -->
+<div class="announcement">
+  <div class="announcement-text" id="announcementText"></div>
+</div>
+
+<header>
+<h1>MCB Consult</h1>
+<nav>
+<a onclick="showPage('home')">Start</a>
+<a onclick="showPage('about')">Over ons</a>
+<a onclick="showPage('services')">Diensten</a>
+<a onclick="showPage('contact')">Contact</a>
+
+<select onchange="setLang(this.value)">
+<option value="nl">NL</option>
+<option value="en">EN</option>
+<option value="fr">FR</option>
+<option value="tr">TR</option>
+</select>
+</nav>
+</header>
+
+<!-- HOME -->
+<section id="home" class="active">
+<h1 id="heroTitle"></h1>
+<p id="heroText"></p>
+<button class="btn" onclick="showPage('contact')" id="heroBtn"></button>
+
+<div class="divider"></div>
+
+<h3 id="whatTitle"></h3>
+<p id="whatText"></p>
+<button class="btn" onclick="showPage('services')" id="whatBtn"></button>
+
+<div class="divider"></div>
+
+<h3 id="howTitle"></h3>
+<p id="howText"></p>
+<button class="btn" onclick="showPage('about')" id="howBtn"></button>
+
+<div class="divider"></div>
+
+<h3 id="whyTitle"></h3>
+<p id="whyText"></p>
+<button class="btn" onclick="showPage('contact')" id="whyBtn"></button>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h2 id="aboutTitle"></h2>
+<p id="aboutText1"></p>
+
+<div class="divider"></div>
+
+<p id="aboutText2"></p>
+
+<div class="team-bar">
+<div class="team-member">Cem B.</div>
+<div class="team-member">Klyian V.</div>
+</div>
+
+<p style="margin-top:32px;font-size:15px;color:#888;">
+Rollen en functies worden later verder besproken.
+</p>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+<h2 id="servicesTitle"></h2>
+<div class="grid" id="servicesGrid"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<h2 id="contactTitle"></h2>
+<p id="contactText"></p>
+
+<form>
+<input id="fname" type="text" required>
+<input id="lname" type="text">
+<select id="serviceSelect" required></select>
+<input id="email" type="email" required>
+<button class="btn" type="submit" id="sendBtn"></button>
+</form>
+</section>
+
+<footer>
+<p>© 2025 MCB Consult</p>
+
+<div style="margin-top:24px;">
+<strong>Meer van ons</strong>
+<div style="margin-top:12px;display:flex;gap:18px;justify-content:center;">
+<a href="https://www.instagram.com/mcbconsult/" target="_blank" style="color:#ccc;text-decoration:none">Instagram</a>
+<a href="#" style="color:#ccc;text-decoration:none">LinkedIn</a>
+<a href="#" style="color:#ccc;text-decoration:none">Twitter</a>
+</div>
+</div>
+</footer>
+
+<script>
+const t={
+nl:{heroTitle:"Wij bouwen digitale merken die schaalbaar groeien",
+heroText:"MCB Consult helpt bedrijven groeien via branding, websites en strategisch advies.",
+heroBtn:"Start een project",
+whatTitle:"Wat doen wij?",
+whatText:"Wij helpen bedrijven hun online aanwezigheid professionaliseren en duurzaam opschalen.",
+whatBtn:"Bekijk onze diensten",
+howTitle:"Hoe werken wij?",
+howText:"We werken volledig digitaal met focus op strategie, creativiteit en resultaat.",
+howBtn:"Meer over ons",
+whyTitle:"Waarom MCB Consult?",
+whyText:"Omdat sterke merken vandaag online worden gebouwd met consistentie en schaalbaarheid.",
+whyBtn:"Neem contact op",
+aboutTitle:"Over ons",
+aboutText1:"MCB Consult is een virtueel digitaal bureau. Al onze diensten worden volledig online uitgevoerd.",
+aboutText2:"We helpen merken met brand scaling, websites, social media management, vertalingen, paid ads en digitale strategie.",
+servicesTitle:"Diensten",
+services:[
+{title:"Social Media Management",desc:"Beheer en optimalisatie van social media kanalen gericht op zichtbaarheid en merkvertrouwen."},
+{title:"Brand Scaling",desc:"Strategische groei en positionering van je merk met focus op schaalbaarheid."},
+{title:"Vertalingen",desc:"Professionele vertalingen afgestemd op doelgroep, cultuur en merkidentiteit."},
+{title:"Website Management",desc:"Onderhoud en optimalisatie van je website voor maximale impact."},
+{title:"Advies op maat",desc:"Strategisch en persoonlijk advies gericht op duurzame groei."},
+{title:"Paid Ads",desc:"Gerichte advertentiecampagnes via Google en social media met focus op rendement."}
+],
+contactTitle:"Contact",
+contactText:"Interesse in samenwerking? Vul het formulier in en wij reageren binnen 24 uur.",
+form:{fname:"Voornaam *",lname:"Achternaam (optioneel)",service:"Selecteer dienst *",email:"E-mailadres *",send:"Verzenden"}},
+en:{heroTitle:"We build digital brands that scale",
+heroText:"MCB Consult helps companies grow through branding and digital strategy.",
+heroBtn:"Start a project",
+whatTitle:"What do we do?",
+whatText:"We help businesses professionalize and scale their online presence.",
+whatBtn:"View our services",
+howTitle:"How do we work?",
+howText:"Fully digital, focused on strategy, creativity and results.",
+howBtn:"More about us",
+whyTitle:"Why MCB Consult?",
+whyText:"Because strong brands are built online.",
+whyBtn:"Contact us",
+aboutTitle:"About us",
+aboutText1:"MCB Consult is a fully digital agency.",
+aboutText2:"Brand scaling, websites, social media, translations, paid ads and strategy.",
+servicesTitle:"Services",
+services:[
+{title:"Social Media Management",desc:"Managing and optimizing social channels to build visibility and trust."},
+{title:"Brand Scaling",desc:"Strategic brand growth with long-term scalability."},
+{title:"Translations",desc:"Professional translations adapted to your audience."},
+{title:"Website Management",desc:"Ongoing website maintenance and optimization."},
+{title:"Custom Consulting",desc:"Tailored strategic advice focused on growth."},
+{title:"Paid Ads",desc:"Targeted ad campaigns focused on performance and ROI."}
+],
+contactTitle:"Contact",
+contactText:"Interested in working together? Fill in the form.",
+form:{fname:"First name *",lname:"Last name (optional)",service:"Select service *",email:"Email address *",send:"Send"}},
+fr:{heroTitle:"Nous construisons des marques digitales évolutives",
+heroText:"MCB Consult accompagne les entreprises dans leur croissance digitale.",
+heroBtn:"Démarrer un projet",
+whatTitle:"Que faisons-nous ?",
+whatText:"Nous aidons les entreprises à développer leur présence en ligne.",
+whatBtn:"Voir nos services",
+howTitle:"Comment travaillons-nous ?",
+howText:"Approche digitale axée sur la stratégie et la performance.",
+howBtn:"À propos de nous",
+whyTitle:"Pourquoi MCB Consult ?",
+whyText:"Parce que les marques fortes se construisent en ligne.",
+whyBtn:"Contactez-nous",
+aboutTitle:"À propos",
+aboutText1:"MCB Consult est une agence digitale virtuelle.",
+aboutText2:"Brand scaling, sites web, réseaux sociaux, traductions, paid ads et stratégie.",
+servicesTitle:"Services",
+services:[
+{title:"Gestion des réseaux sociaux",desc:"Gestion stratégique pour accroître visibilité et confiance."},
+{title:"Brand Scaling",desc:"Développement durable de votre marque."},
+{title:"Traductions",desc:"Traductions professionnelles adaptées à votre audience."},
+{title:"Gestion de site web",desc:"Maintenance et optimisation continues."},
+{title:"Conseil sur mesure",desc:"Conseil stratégique personnalisé."},
+{title:"Paid Ads",desc:"Campagnes publicitaires orientées performance."}
+],
+contactTitle:"Contact",
+contactText:"Intéressé par une collaboration ? Remplissez le formulaire.",
+form:{fname:"Prénom *",lname:"Nom (optionnel)",service:"Sélectionner un service *",email:"Adresse e-mail *",send:"Envoyer"}},
+tr:{heroTitle:"Ölçeklenebilir dijital markalar inşa ediyoruz",
+heroText:"MCB Consult markaların dijital büyümesini destekler.",
+heroBtn:"Projeye başla",
+whatTitle:"Ne yapıyoruz?",
+whatText:"Markaların dijital varlığını büyütüyoruz.",
+whatBtn:"Hizmetlerimizi gör",
+howTitle:"Nasıl çalışıyoruz?",
+howText:"Strateji ve sonuç odaklı dijital yaklaşım.",
+howBtn:"Hakkımızda",
+whyTitle:"Neden MCB Consult?",
+whyText:"Çünkü güçlü markalar dijitalde inşa edilir.",
+whyBtn:"İletişime geç",
+aboutTitle:"Hakkımızda",
+aboutText1:"MCB Consult tamamen dijital bir ajanstır.",
+aboutText2:"Web, sosyal medya, çeviri, paid ads ve strateji hizmetleri sunar.",
+servicesTitle:"Hizmetler",
+services:[
+{title:"Sosyal Medya Yönetimi",desc:"Marka bilinirliği ve güven oluşturmak için."},
+{title:"Marka Ölçeklendirme",desc:"Sürdürülebilir marka büyümesi."},
+{title:"Çeviri Hizmetleri",desc:"Hedef kitleye uygun çeviriler."},
+{title:"Web Sitesi Yönetimi",desc:"Sitenizin güçlü kalması için."},
+{title:"Özel Danışmanlık",desc:"Büyüme odaklı danışmanlık."},
+{title:"Paid Ads",desc:"Performans odaklı reklam kampanyaları."}
+],
+contactTitle:"İletişim",
+contactText:"Formu doldurun, 24 saat içinde dönüş yaparız.",
+form:{fname:"Ad *",lname:"Soyad (opsiyonel)",service:"Hizmet seç *",email:"E-posta *",send:"Gönder"}}
+};
+
+const announcementTexts = {
+nl:"Deze website zal binnenkort in dienst komen!",
+en:"This website will be launching soon!",
+fr:"Ce site sera bientôt en ligne !",
+tr:"Bu web sitesi yakında hizmete girecek!"
+};
+
+function setLang(l){
+const d=t[l];
+heroTitle.innerText=d.heroTitle;
+heroText.innerText=d.heroText;
+heroBtn.innerText=d.heroBtn;
+whatTitle.innerText=d.whatTitle;
+whatText.innerText=d.whatText;
+whatBtn.innerText=d.whatBtn;
+howTitle.innerText=d.howTitle;
+howText.innerText=d.howText;
+howBtn.innerText=d.howBtn;
+whyTitle.innerText=d.whyTitle;
+whyText.innerText=d.whyText;
+whyBtn.innerText=d.whyBtn;
+aboutTitle.innerText=d.aboutTitle;
+aboutText1.innerText=d.aboutText1;
+aboutText2.innerText=d.aboutText2;
+servicesTitle.innerText=d.servicesTitle;
+contactTitle.innerText=d.contactTitle;
+contactText.innerText=d.contactText;
+
+fname.placeholder=d.form.fname;
+lname.placeholder=d.form.lname;
+email.placeholder=d.form.email;
+sendBtn.innerText=d.form.send;
+
+serviceSelect.innerHTML=`<option value="">${d.form.service}</option>`;
+d.services.forEach(s=>serviceSelect.innerHTML+=`<option>${s.title}</option>`);
+
+servicesGrid.innerHTML="";
+d.services.forEach(s=>{
+servicesGrid.innerHTML+=`
+<div class="card">
+<h3>${s.title}</h3>
+<p>${s.desc}</p>
+</div>`;
+});
+
+// Announcement text
+announcementText.innerText = announcementTexts[l];
+}
+setLang("nl");
+
+function showPage(id){
+document.querySelectorAll("section").forEach(s=>s.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
